@@ -111,4 +111,5 @@ dependencies:
     - werkzeug==2.3.7
     - yarl==1.9.2
     - zipp==3.17.0
+    - -e git+https://github.com/CompVis/taming-transformers.git@master#egg=taming-transformers
 prefix: /home/first/.conda/envs/xctdiff
