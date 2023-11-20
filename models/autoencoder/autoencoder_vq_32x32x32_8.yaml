@@ -1,0 +1,40 @@
+model:
+  base_learning_rate: 6e-5
+  target: ldm.models.autoencoder.VQModel
+
+  params:
+    n_embed: 8192
+    embed_dim: 8
+    monitor: val/rec_loss
+
+    ddconfig:
+      in_channels: 1
+      out_channels: 1
+      ch: 32
+      resolution: 128
+      attn_resolutions: [8]
+      ch_mult: [1,2,4]    # num_down = len(ch_mult)-1
+      num_blocks: 2
+      z_channels: 4
+      block_type: "ResnetBlock"    # ResnetBlock, ConvnetBlock
+      attn_type: "vanilla"    # to be continued
+      dropout: 0.0
+      resamp_with_conv: true
+      num_groups: 8
+
+    lossconfig:
+      target: ldm.modules.losses.VQLPIPSWithDiscriminator
+      params:
+        disc_start: 100000
+        codebook_weight: 1.0
+        disc_in_channels: 1
+        disc_num_layers: 3
+        disc_ndf: 64
+        pixel_loss: "l1"
+
+data:
+  batch_size: 1
+  base_dir: /home/first/XctDiff/dataset
+  json_list: ["json/LIDC_IDRI.json"]
+  num_workers: 16
+  pin_memory: True

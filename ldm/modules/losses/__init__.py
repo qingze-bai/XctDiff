@@ -1,0 +1,1 @@
+from ldm.modules.losses.vqperceptual import LPIPSWithDiscriminator, VQLPIPSWithDiscriminator
